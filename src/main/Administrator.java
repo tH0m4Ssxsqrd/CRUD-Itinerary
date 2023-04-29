@@ -1,20 +1,22 @@
 package main;
 
+import java.util.Date;
+
 public class Administrator extends User{
-	public Administrator(PersonDAO personDao) {
-        super(personDao);
+	public Administrator(ItineraryDAO itineraryDao) {
+        super(itineraryDao);
     }
 
-    public void addPerson(Person person) {
-        getPersonDao().addPerson(person);
+    public void addItinerary(Itinerary itinerary) {
+        getItineraryDao().addItinerary(itinerary);
     }
 
-    public void updatePerson(Person person) {
-        getPersonDao().updatePerson(person);
+    public void updateItinerary(Itinerary itinerary) {
+        getItineraryDao().updateItinerary(itinerary);
     }
 
-    public void deletePerson(String name) {
-        getPersonDao().deletePerson(name);
+    public void deleteItinerary(Date date) {
+        getItineraryDao().deleteItinerary(date);
     }
 
 }

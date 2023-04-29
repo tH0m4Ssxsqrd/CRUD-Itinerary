@@ -1,27 +1,28 @@
 package main;
 
+import java.util.Date;
 import java.util.List;
 
 public class User {
-	private PersonDAO personDao;
+	private ItineraryDAO itineraryDao;
 
-    public User(PersonDAO personDao) {
-        this.setPersonDao(personDao);
+    public User(ItineraryDAO itineraryDao) {
+        this.setItineraryDao(itineraryDao);
     }
 
-    public List<Person> getAllPeople() {
-        return getPersonDao().getAllPeople();
+    public List<Itinerary> getAllItinerary() {
+        return getItineraryDao().getAllItinerary();
     }
 
-    public Person getPersonByName(String name) {
-        return getPersonDao().getPersonByName(name);
+    public Itinerary getItineraryByDate(Date date) {
+        return getItineraryDao().getItineraryByDate(date);
     }
 
-	public PersonDAO getPersonDao() {
-		return personDao;
+	public ItineraryDAO getItineraryDao() {
+		return itineraryDao;
 	}
 
-	public void setPersonDao(PersonDAO personDao) {
-		this.personDao = personDao;
+	public void setItineraryDao(ItineraryDAO itineraryDao) {
+		this.itineraryDao = itineraryDao;
 	}
 }
