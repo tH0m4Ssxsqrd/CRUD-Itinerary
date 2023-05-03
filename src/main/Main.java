@@ -25,7 +25,7 @@ public class Main {
 
 			            if (choice == 1) {
 			                for (Itinerary itinerary : user.getAllItinerary()) {
-			                    System.out.println(itinerary.getOrigin() + ", " + itinerary.getDestination());
+			                    System.out.println(itinerary.getOrigin() + ", " + itinerary.getDestination() + " em " + itinerary.getDate());
 			                }
 			            } else if (choice == 2) {
 			                System.out.println("Insira a data da viagem:");
@@ -43,7 +43,7 @@ public class Main {
 			                Itinerary itinerary = user.getItineraryByDate(date);
 			                
 			                if (itinerary != null) {
-			                    System.out.println(itinerary.getOrigin() + ", " + itinerary.getDestination());
+			                	System.out.println(itinerary.getOrigin() + ", " + itinerary.getDestination() + " em " + itinerary.getDate());
 			                } else {
 			                    System.out.println("Destino nao encontrado.");
 			                }
@@ -127,7 +127,7 @@ public class Main {
 			                
 			            } else if (choice == 4) {
 			                for (Itinerary itinerary : user.getAllItinerary()) {
-			                    System.out.println(itinerary.getOrigin() + ", " + itinerary.getDestination());
+			                	System.out.println(itinerary.getOrigin() + ", " + itinerary.getDestination() + " em " + itinerary.getDate());
 			                }
 			                
 			            } else if (choice == 5) {
@@ -145,7 +145,7 @@ public class Main {
 			                
 			                Itinerary itinerary = user.getItineraryByDate(date);
 			                if (itinerary != null) {
-			                    System.out.println(itinerary.getOrigin() + ", " + itinerary.getDestination());
+			                	System.out.println(itinerary.getOrigin() + ", " + itinerary.getDestination() + " em " + itinerary.getDate());
 			                } else {
 			                    System.out.println("Não há nada nesta data.");
 			                }
