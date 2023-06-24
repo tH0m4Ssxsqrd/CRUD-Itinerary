@@ -1,24 +1,33 @@
 package view;
 
 import javax.swing.*;
+
+import control.ItineraryDAO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
 public class AdminFrame extends JFrame {
-    public AdminFrame() {
+	@SuppressWarnings("unused")
+	private ItineraryDAO itineraryDao;
+
+    public AdminFrame(ItineraryDAO itineraryDao) {
+        this.itineraryDao = itineraryDao;
+        
         setTitle("Admin Frame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Create a button
-        JButton adminButton = new JButton("I'm an Admin");
+        JButton adminButton = new JButton("Add Itinerary");
         
         // Add an action listener to the button
         adminButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("I'm an Admin");
+                dispose();
+                new UpdateItineraryFrame(itineraryDao);
             }
         });
         
@@ -28,7 +37,7 @@ public class AdminFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new MainFrame();
+                new MainFrame(itineraryDao);
             }
         });
         

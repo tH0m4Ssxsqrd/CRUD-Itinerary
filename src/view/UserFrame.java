@@ -1,13 +1,19 @@
 package view;
 
 import javax.swing.*;
+
+import control.ItineraryDAO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @SuppressWarnings("serial")
 public class UserFrame extends JFrame {
-    public UserFrame() {
+	@SuppressWarnings("unused")
+	private ItineraryDAO itineraryDao;
+	
+    public UserFrame(ItineraryDAO itineraryDao) {
         setTitle("User Frame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -28,7 +34,7 @@ public class UserFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new MainFrame();
+                new MainFrame(itineraryDao);
             }
         });
         

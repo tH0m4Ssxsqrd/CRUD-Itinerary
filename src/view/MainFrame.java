@@ -5,9 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import control.ItineraryDAO;
+
 @SuppressWarnings("serial")
 public class MainFrame extends JFrame {
-    public MainFrame() {
+	@SuppressWarnings("unused")
+	private ItineraryDAO itineraryDao;
+
+    public MainFrame(ItineraryDAO itineraryDao) {
+        this.itineraryDao = itineraryDao;
+
     	//Overrides the default font sizes and styles.
     	Font fontTitle = new Font("sans serif", Font.PLAIN, 30);
     	Font fontButtons = new Font("sans serif", Font.PLAIN, 20);
@@ -42,7 +49,7 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new AdminFrame();
+                new AdminFrame(itineraryDao);
             }
         });
 
@@ -50,7 +57,7 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new UserFrame();
+                new UserFrame(itineraryDao);
             }
         });
 
@@ -60,13 +67,5 @@ public class MainFrame extends JFrame {
 		frame.add(adminButton);
 		frame.add(userButton);
 
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame();
-            }
-        });
     }
 }
