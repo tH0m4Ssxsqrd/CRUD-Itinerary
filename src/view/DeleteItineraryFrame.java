@@ -1,7 +1,6 @@
 package view;
 
 import control.ItineraryDAO;
-import model.Itinerary;
 import model.Administrator;
 
 import javax.swing.*;
@@ -13,11 +12,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class UpdateItineraryFrame extends JFrame {
+public class DeleteItineraryFrame extends JFrame {
 	@SuppressWarnings("unused")
 	private ItineraryDAO itineraryDao;
 
-    public UpdateItineraryFrame(ItineraryDAO itineraryDao) {
+    public DeleteItineraryFrame(ItineraryDAO itineraryDao) {
         this.itineraryDao = itineraryDao;
 
     	//Overrides the default font sizes and styles.
@@ -32,40 +31,25 @@ public class UpdateItineraryFrame extends JFrame {
 		frame.setVisible(true);
 		frame.setResizable(false);
 
-    	JLabel panelTitle = new JLabel("Update Itinerary");
+    	JLabel panelTitle = new JLabel("Delete Itinerary");
 		panelTitle.setBounds(120, 30, 400, 40);
 		panelTitle.setFont(fontTitle);
 
 		//Labels each TextField
-		JLabel originLabel = new JLabel("from:");
-		originLabel.setBounds(30, 65, 200, 40);
-
-		JLabel destinationLabel = new JLabel("to:");
-		destinationLabel.setBounds(30, 125, 200, 40);
-
-		JLabel dateLabel = new JLabel("Change from day (dd/mm/yyyy):");
-		dateLabel.setBounds(270, 65, 200, 40);
+		JLabel dateLabel = new JLabel("Delete Itinerary on date (dd/mm/yyyy):");
+		dateLabel.setBounds(30, 65, 200, 40);
 
 		//Creates data fields for instantiating an Itinerary 
-		JTextField originField = new JTextField();
-		originField.setBounds(30, 90, 200, 40);
-		originField.setFont(fontButtons);
-
-		JTextField destinationField = new JTextField();
-		destinationField.setBounds(30, 150, 200, 40);
-		destinationField.setFont(fontButtons);
-
 		JTextField dateField = new JTextField();
-		dateField.setBounds(270, 90, 200, 40);
+		dateField.setBounds(30, 90, 200, 40);
 		dateField.setFont(fontButtons);
 
 		//Draws a Label with a random anime girl at the bottom of the screen.
-		JLabel cuteLabel = new JLabel();
-		cuteLabel.setBounds(0, 200, 200, 200);
-		RandomImageLabel.setImageIconFromRandomFile(cuteLabel, "src/cute_images");
+		JLabel titleLabel = new JLabel();
+		titleLabel.setBounds(0, 200, 200, 200);
+		RandomImageLabel.setImageIconFromRandomFile(titleLabel, "src/cute_images");
 
-        //Draws buttons required buttons
-		JButton addButton = new JButton("Update");
+        JButton addButton = new JButton("Delete");
         addButton.setBounds(270,150,200,40);
         addButton.setFont(fontButtons);
 
@@ -83,15 +67,12 @@ public class UpdateItineraryFrame extends JFrame {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 try {
                     date = dateFormat.parse(dateField.getText());
-                    System.out.println("Data inserida: " + date);
+                    System.out.println("Date inserted: " + date);
+                    admin.deleteItinerary(date);
+                    System.out.println("Itinerary was successfully updated.");
                 } catch (ParseException exeption) {
-                    System.out.println("Formato de data inválido.");
+                    System.out.println("Invalid data format");
                 }
-                String origin = originField.getText();
-                String destination = destinationField.getText();
-                Itinerary itinerary = new Itinerary(origin, destination, date);
-                admin.updateItinerary(itinerary);
-                System.out.println("Itinerario atualizado com sucesso.");
             }
         });
 
@@ -105,17 +86,13 @@ public class UpdateItineraryFrame extends JFrame {
 
         // Adds components to frame
         frame.add(panelTitle);
-		frame.add(cuteLabel);
+		frame.add(titleLabel);
 		
 		frame.add(addButton);
 		frame.add(backButton);
 		
-		frame.add(originField);
-		frame.add(destinationField);
 		frame.add(dateField);
 		
-		frame.add(originLabel);
-		frame.add(destinationLabel);
 		frame.add(dateLabel);
 
     }

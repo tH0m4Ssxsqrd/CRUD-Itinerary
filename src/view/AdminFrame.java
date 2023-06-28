@@ -12,52 +12,70 @@ import java.awt.event.ActionListener;
 public class AdminFrame extends JFrame {
 	@SuppressWarnings("unused")
 	private ItineraryDAO itineraryDao;
-
+	@SuppressWarnings("unused")
+	private boolean isAdmin = false;
+	
     public AdminFrame(ItineraryDAO itineraryDao) {
-        this.itineraryDao = itineraryDao;
+
+    	//Overrides the default font sizes and styles.
+    	Font fontTitle = new Font("sans serif", Font.PLAIN, 30);
+    	Font fontButtons = new Font("sans serif", Font.PLAIN, 20);
+    	
+    	//Declares default window parameters.
+    	JFrame frame=new JFrame("Itinerary-CRUD");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500,400);
+		frame.setLayout(null);  
+		frame.setVisible(true);
+		frame.setResizable(false);
+		
+		JLabel panelTitle = new JLabel("What would you like to do?");
+		panelTitle.setBounds(70, 30, 400, 40);
+		panelTitle.setFont(fontTitle);
+		
+		JLabel cuteLabel = new JLabel();
+		cuteLabel.setBounds(0, 200, 200, 200);
+		RandomImageLabel.setImageIconFromRandomFile(cuteLabel, "src/cute_images");
         
-        setTitle("Admin Frame");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JButton addButton = new JButton("Add Itinerary");
+        addButton.setBounds(30,90,200,40);
+        addButton.setFont(fontButtons);
         
-        // Create a button
-        JButton adminButton = new JButton("Add Itinerary");
+        JButton updateButton = new JButton("Update Itinerary");
+        updateButton.setBounds(270,90,200,40);
+        updateButton.setFont(fontButtons);
         
-        // Add an action listener to the button
-        adminButton.addActionListener(new ActionListener() {
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(370,330,100,40);
+        backButton.setFont(fontButtons);
+
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+            	frame.dispose();
+                new AddItineraryFrame(itineraryDao);
+            }
+        });
+        
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	frame.dispose();
                 new UpdateItineraryFrame(itineraryDao);
             }
         });
-        
-     // Create a button to go back to the MainFrame
-        JButton backButton = new JButton("Back to Main");
+
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
+                frame.dispose();
                 new MainFrame(itineraryDao);
             }
         });
-        
-        // Create a panel to hold the button
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panel.add(adminButton);
-        panel.add(backButton);
-        
-        // Add the panel to the frame
-        getContentPane().add(panel);
-        
-        // Set the frame size to 600x500 pixels
-        setSize(600, 500);
-        setResizable(false); // Prevent resizing
-        setLocationRelativeTo(null);
-        
-        // Make the frame visible
-        setVisible(true);
+        frame.add(backButton);
+        frame.add(addButton);
+        frame.add(updateButton);
+        frame.add(panelTitle);
+        frame.add(cuteLabel);
     }
 }
-
