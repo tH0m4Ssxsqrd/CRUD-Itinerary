@@ -43,9 +43,12 @@ public class QueryItineraryFrame extends JFrame {
 
 		//Creates data fields for instantiating an Itinerary 
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(30, 90, 565, 200);
+//		textArea.setBounds(30, 90, 565, 200);
 		textArea.setFont(fontButtons);
-
+		
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(30, 90, 565, 200);
+		
 		//Draws a Label with a random anime girl at the bottom of the screen.
 		JLabel cuteLabel = new JLabel();
 		cuteLabel.setBounds(0, 300, 200, 200);
@@ -100,7 +103,7 @@ public class QueryItineraryFrame extends JFrame {
 		frame.add(addButton);
 		frame.add(backButton);
 		
-		frame.add(textArea);
+		frame.add(scrollPane);
 		
 		frame.add(dateLabel);
 

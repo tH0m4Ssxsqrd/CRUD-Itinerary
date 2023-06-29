@@ -84,14 +84,22 @@ public class UpdateItineraryFrame extends JFrame {
                 try {
                     date = dateFormat.parse(dateField.getText());
                     System.out.println("Data inserida: " + date);
+                    
+                    String origin = originField.getText();
+                    String destination = destinationField.getText();
+                    Itinerary itinerary = new Itinerary(origin, destination, date);
+                    admin.updateItinerary(itinerary);
+                    System.out.println("Itinerario atualizado com sucesso.");
+                    
+                    originField.setText("");
+                    destinationField.setText("");
+                    dateField.setText("");
                 } catch (ParseException exeption) {
                     System.out.println("Formato de data inválido.");
+                    new InvalidDateDialog();
+
+                    dateField.setText("");
                 }
-                String origin = originField.getText();
-                String destination = destinationField.getText();
-                Itinerary itinerary = new Itinerary(origin, destination, date);
-                admin.updateItinerary(itinerary);
-                System.out.println("Itinerario atualizado com sucesso.");
             }
         });
 

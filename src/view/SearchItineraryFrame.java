@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @SuppressWarnings("serial")
 public class SearchItineraryFrame extends JFrame {
@@ -46,12 +49,15 @@ public class SearchItineraryFrame extends JFrame {
 
 		//Creates data fields for searching and displaying an Itinerary 
 		JTextArea textArea = new JTextArea();
-		textArea.setBounds(30, 90, 565, 200);
+//		textArea.setBounds(30, 90, 565, 200);
 		textArea.setFont(fontButtons);
 		
-		JTextField textField = new JTextField();
-		textField.setBounds(385, 380, 220, 40);
-		textField.setFont(fontButtons);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(30, 90, 565, 200);
+		
+		JTextField dateField = new JTextField();
+		dateField.setBounds(385, 380, 220, 40);
+		dateField.setFont(fontButtons);
 
 		//Draws a Label with a random anime girl at the bottom of the screen.
 		JLabel cuteLabel = new JLabel();
@@ -74,15 +80,45 @@ public class SearchItineraryFrame extends JFrame {
             	if (isAdmin) {
             	Administrator admin = new Administrator(itineraryDao);
             	
-            	for (Itinerary itinerary : admin.getAllItinerary()) {
-            	    String output = itinerary.getOrigin() + ", " + itinerary.getDestination() + " in " + itinerary.getDate();
-            	    textArea.append(output + "\n");}
+            	
+            	Date date = null;
+                
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    date = dateFormat.parse(dateField.getText());
+                    System.out.println("Data inserida: " + date);
+                } catch (ParseException exception) {
+                    new InvalidDateDialog();
+                }
+                
+                Itinerary itinerary = admin.getItineraryByDate(date);
+                if (itinerary != null) {
+            	String output = itinerary.getOrigin() + ", " + itinerary.getDestination() + " in " + itinerary.getDate();
+            	textArea.append(output + "\n");
+                } else {
+                	textArea.append("None found.\n");
+                }
+            	
             	} else {
             	User user =  new User(itineraryDao);
-            	
-            	for (Itinerary itinerary : user.getAllItinerary()) {
-            	    String output = itinerary.getOrigin() + ", " + itinerary.getDestination() + " in " + itinerary.getDate();
-            	    textArea.append(output + "\n");}
+
+            	Date date = null;
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    date = dateFormat.parse(dateField.getText());
+                    System.out.println("Data inserida: " + date);
+                } catch (ParseException exception) {
+                    new InvalidDateDialog();
+                }
+                
+                Itinerary itinerary = user.getItineraryByDate(date);
+                if (itinerary != null) {
+                	String output = itinerary.getOrigin() + ", " + itinerary.getDestination() + " in " + itinerary.getDate();
+                	textArea.append(output + "\n");
+                    } else {
+                    	textArea.append("None found.\n");
+                    }
             	}
             }
         });
@@ -107,8 +143,8 @@ public class SearchItineraryFrame extends JFrame {
 		frame.add(searchButton);
 		frame.add(backButton);
 		
-		frame.add(textArea);
-		frame.add(textField);
+		frame.add(scrollPane);
+		frame.add(dateField);
 		
 		frame.add(itineraryLabel);
 		frame.add(dateLabel);

@@ -36,8 +36,8 @@ public class DeleteItineraryFrame extends JFrame {
 		panelTitle.setFont(fontTitle);
 
 		//Labels each TextField
-		JLabel dateLabel = new JLabel("Delete Itinerary on date (dd/mm/yyyy):");
-		dateLabel.setBounds(30, 65, 200, 40);
+		JLabel dateLabel = new JLabel("Delete Itinerary on (dd/mm/yyyy):");
+		dateLabel.setBounds(30, 65, 250, 40);
 
 		//Creates data fields for instantiating an Itinerary 
 		JTextField dateField = new JTextField();
@@ -49,16 +49,16 @@ public class DeleteItineraryFrame extends JFrame {
 		titleLabel.setBounds(0, 200, 200, 200);
 		RandomImageLabel.setImageIconFromRandomFile(titleLabel, "src/cute_images");
 
-        JButton addButton = new JButton("Delete");
-        addButton.setBounds(270,150,200,40);
-        addButton.setFont(fontButtons);
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.setBounds(270,90,200,40);
+        deleteButton.setFont(fontButtons);
 
         JButton backButton = new JButton("Back");
         backButton.setBounds(370,330,100,40);
         backButton.setFont(fontButtons);
 
         // Add action listeners to the buttons
-        addButton.addActionListener(new ActionListener() {
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	Administrator admin = new Administrator(itineraryDao);
@@ -69,9 +69,14 @@ public class DeleteItineraryFrame extends JFrame {
                     date = dateFormat.parse(dateField.getText());
                     System.out.println("Date inserted: " + date);
                     admin.deleteItinerary(date);
-                    System.out.println("Itinerary was successfully updated.");
+                    System.out.println("Itinerario adicionado com sucesso.");
+
+                    dateField.setText("");
                 } catch (ParseException exeption) {
-                    System.out.println("Invalid data format");
+                	new InvalidDateDialog();
+                    System.out.println("Formato de data inválido.");
+
+                    dateField.setText("");
                 }
             }
         });
@@ -88,7 +93,7 @@ public class DeleteItineraryFrame extends JFrame {
         frame.add(panelTitle);
 		frame.add(titleLabel);
 		
-		frame.add(addButton);
+		frame.add(deleteButton);
 		frame.add(backButton);
 		
 		frame.add(dateField);

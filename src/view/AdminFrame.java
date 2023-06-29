@@ -12,8 +12,7 @@ import java.awt.event.ActionListener;
 public class AdminFrame extends JFrame {
 	@SuppressWarnings("unused")
 	private ItineraryDAO itineraryDao;
-	@SuppressWarnings("unused")
-	private boolean isAdmin = false;
+	private boolean isAdmin = true;
 	
     public AdminFrame(ItineraryDAO itineraryDao) {
 
@@ -45,6 +44,18 @@ public class AdminFrame extends JFrame {
         updateButton.setBounds(270,90,200,40);
         updateButton.setFont(fontButtons);
         
+        JButton removeButton = new JButton("Remove Itinerary");
+        removeButton.setBounds(30,150,200,40);
+        removeButton.setFont(fontButtons);
+        
+        JButton queryButton = new JButton("Query all");
+        queryButton.setBounds(270,150,200,40);
+        queryButton.setFont(fontButtons);
+        
+        JButton searchButton = new JButton("Search");
+        searchButton.setBounds(270,210,200,40);
+        searchButton.setFont(fontButtons);
+        
         JButton backButton = new JButton("Back");
         backButton.setBounds(370,330,100,40);
         backButton.setFont(fontButtons);
@@ -65,6 +76,30 @@ public class AdminFrame extends JFrame {
             }
         });
 
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	frame.dispose();
+                new DeleteItineraryFrame(itineraryDao);
+            }
+        });
+        
+        queryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	frame.dispose();
+                new QueryItineraryFrame(itineraryDao, isAdmin);
+            }
+        });
+        
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	frame.dispose();
+                new SearchItineraryFrame(itineraryDao, isAdmin);
+            }
+        });
+        
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,6 +110,10 @@ public class AdminFrame extends JFrame {
         frame.add(backButton);
         frame.add(addButton);
         frame.add(updateButton);
+        frame.add(removeButton);
+        frame.add(queryButton);
+        frame.add(searchButton);
+        
         frame.add(panelTitle);
         frame.add(cuteLabel);
     }
