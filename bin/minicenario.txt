@@ -1,8 +1,0 @@
-Pâmela deseja escrever uma aplicação para gerenciar os itinerários de ônibus de sua empresa. É necessário que haja dois níveis de acesso, sendo um com privilégios (admin) e um usuário normal (user).
-O usuário normal poderá apenas listar todos os itinerários ou buscar por um em data específica, enquanto o admin terá permissões para criar, editar e deletar usuários.
-A criação de um novo itinerário será feita interativamente, pedindo por uma origem, um destino e uma data, formatada em dd/MM/yyyy. Um menu interativo oferecerá as operações de crud correspondentes para cada usuário.
-
-- Uma operação de Create pedirá origem, destino e data.
-- Uma operação de Read pedirá apenas uma data e retornará todos os itinerários que estiverem marcados para aquela data.
-- Uma operação de Update pedirá a data a ser alterada e depois uma nova origem e destino.
-- Uma operação de Delete pedirá uma data e removerá o itinerário que estiver marcado para aquela data.
