@@ -11,59 +11,67 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The DeleteItineraryFrame class represents the GUI frame for deleting an itinerary.
+ */
 @SuppressWarnings("serial")
 public class DeleteItineraryFrame extends JFrame {
-	@SuppressWarnings("unused")
-	private ItineraryDAO itineraryDao;
+    @SuppressWarnings("unused")
+    private ItineraryDAO itineraryDao;
 
+    /**
+     * Creates a new instance of DeleteItineraryFrame.
+     *
+     * @param itineraryDao the ItineraryDAO instance used for deleting itineraries
+     */
     public DeleteItineraryFrame(ItineraryDAO itineraryDao) {
         this.itineraryDao = itineraryDao;
 
-    	//Overrides the default font sizes and styles.
-    	Font fontTitle = new Font("sans serif", Font.PLAIN, 30);
-    	Font fontButtons = new Font("sans serif", Font.PLAIN, 20);
-    	
-    	//Declares default window parameters.
-    	JFrame frame=new JFrame("Itinerary-CRUD");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500,400);
-		frame.setLayout(null);  
-		frame.setVisible(true);
-		frame.setResizable(false);
+        // Overrides the default font sizes and styles.
+        Font fontTitle = new Font("sans serif", Font.PLAIN, 30);
+        Font fontButtons = new Font("sans serif", Font.PLAIN, 20);
 
-    	JLabel panelTitle = new JLabel("Delete Itinerary");
-		panelTitle.setBounds(120, 30, 400, 40);
-		panelTitle.setFont(fontTitle);
+        // Declares default window parameters.
+        JFrame frame = new JFrame("Itinerary-CRUD");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        frame.setResizable(false);
 
-		//Labels each TextField
-		JLabel dateLabel = new JLabel("Delete Itinerary on (dd/mm/yyyy):");
-		dateLabel.setBounds(30, 65, 250, 40);
+        JLabel panelTitle = new JLabel("Delete Itinerary");
+        panelTitle.setBounds(120, 30, 400, 40);
+        panelTitle.setFont(fontTitle);
 
-		//Creates data fields for instantiating an Itinerary 
-		JTextField dateField = new JTextField();
-		dateField.setBounds(30, 90, 200, 40);
-		dateField.setFont(fontButtons);
+        // Labels each TextField
+        JLabel dateLabel = new JLabel("Delete Itinerary on (dd/mm/yyyy):");
+        dateLabel.setBounds(30, 65, 250, 40);
 
-		//Draws a Label with a random anime girl at the bottom of the screen.
-		JLabel titleLabel = new JLabel();
-		titleLabel.setBounds(0, 200, 200, 200);
-		RandomImageLabel.setImageIconFromRandomFile(titleLabel, "src/cute_images");
+        // Creates data fields for instantiating an Itinerary
+        JTextField dateField = new JTextField();
+        dateField.setBounds(30, 90, 200, 40);
+        dateField.setFont(fontButtons);
+
+        // Draws a Label with a random anime girl at the bottom of the screen.
+        JLabel titleLabel = new JLabel();
+        titleLabel.setBounds(0, 200, 200, 200);
+        RandomImageLabel.setImageIconFromRandomFile(titleLabel, "src/cute_images");
 
         JButton deleteButton = new JButton("Delete");
-        deleteButton.setBounds(270,90,200,40);
+        deleteButton.setBounds(270, 90, 200, 40);
         deleteButton.setFont(fontButtons);
 
         JButton backButton = new JButton("Back");
-        backButton.setBounds(370,330,100,40);
+        backButton.setBounds(370, 330, 100, 40);
         backButton.setFont(fontButtons);
 
         // Add action listeners to the buttons
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	Administrator admin = new Administrator(itineraryDao);
-            	Date date = null;
-                
+                Administrator admin = new Administrator(itineraryDao);
+                Date date = null;
+
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 try {
                     date = dateFormat.parse(dateField.getText());
@@ -72,8 +80,8 @@ public class DeleteItineraryFrame extends JFrame {
                     System.out.println("Itinerario adicionado com sucesso.");
 
                     dateField.setText("");
-                } catch (ParseException exeption) {
-                	new InvalidDateDialog();
+                } catch (ParseException exception) {
+                    new InvalidDateDialog();
                     System.out.println("Formato de data inválido.");
 
                     dateField.setText("");
@@ -91,14 +99,13 @@ public class DeleteItineraryFrame extends JFrame {
 
         // Adds components to frame
         frame.add(panelTitle);
-		frame.add(titleLabel);
-		
-		frame.add(deleteButton);
-		frame.add(backButton);
-		
-		frame.add(dateField);
-		
-		frame.add(dateLabel);
+        frame.add(titleLabel);
 
+        frame.add(deleteButton);
+        frame.add(backButton);
+
+        frame.add(dateField);
+
+        frame.add(dateLabel);
     }
 }

@@ -13,76 +13,83 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The SearchItineraryFrame class represents a frame that allows searching for an itinerary by date.
+ */
 @SuppressWarnings("serial")
 public class SearchItineraryFrame extends JFrame {
-	@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
 	private ItineraryDAO itineraryDao;
-	@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
 	private boolean isAdmin;
-	
+
+    /**
+     * Creates a new instance of SearchItineraryFrame.
+     *
+     * @param itineraryDao the itinerary DAO
+     * @param isAdmin      a boolean indicating if the user is an administrator
+     */
     public SearchItineraryFrame(ItineraryDAO itineraryDao, boolean isAdmin) {
         this.itineraryDao = itineraryDao;
         this.isAdmin = isAdmin;
 
-    	//Overrides the default font sizes and styles.
-    	Font fontTitle = new Font("sans serif", Font.PLAIN, 30);
-    	Font fontButtons = new Font("sans serif", Font.PLAIN, 20);
-    	
-    	//Declares default window parameters.
-    	JFrame frame=new JFrame("Itinerary-CRUD");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(625,500);
-		frame.setLayout(null);  
-		frame.setVisible(true);
-		frame.setResizable(false);
+        // Overrides the default font sizes and styles.
+        Font fontTitle = new Font("sans serif", Font.PLAIN, 30);
+        Font fontButtons = new Font("sans serif", Font.PLAIN, 20);
 
-    	JLabel panelTitle = new JLabel("Search Itinerary by date");
-		panelTitle.setBounds(180, 30, 400, 40);
-		panelTitle.setFont(fontTitle);
+        // Declares default window parameters.
+        JFrame frame = new JFrame("Itinerary-CRUD");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(625, 500);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        frame.setResizable(false);
 
-		//Labels each TextField
-		JLabel itineraryLabel = new JLabel("Itineraries in the form origin/destination/date");
-		itineraryLabel.setBounds(30, 65, 300, 40);
-		
-		JLabel dateLabel = new JLabel("Enter date to be searched:");
-		dateLabel.setBounds(385,355,200,40);
+        JLabel panelTitle = new JLabel("Search Itinerary by date");
+        panelTitle.setBounds(180, 30, 400, 40);
+        panelTitle.setFont(fontTitle);
 
-		//Creates data fields for searching and displaying an Itinerary 
-		JTextArea textArea = new JTextArea();
-//		textArea.setBounds(30, 90, 565, 200);
-		textArea.setFont(fontButtons);
-		
-		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setBounds(30, 90, 565, 200);
-		
-		JTextField dateField = new JTextField();
-		dateField.setBounds(385, 380, 220, 40);
-		dateField.setFont(fontButtons);
+        // Labels each TextField
+        JLabel itineraryLabel = new JLabel("Itineraries in the form origin/destination/date");
+        itineraryLabel.setBounds(30, 65, 300, 40);
 
-		//Draws a Label with a random anime girl at the bottom of the screen.
-		JLabel cuteLabel = new JLabel();
-		cuteLabel.setBounds(0, 300, 200, 200);
-		RandomImageLabel.setImageIconFromRandomFile(cuteLabel, "src/cute_images");
+        JLabel dateLabel = new JLabel("Enter date to be searched:");
+        dateLabel.setBounds(385, 355, 200, 40);
+
+        // Creates data fields for searching and displaying an Itinerary
+        JTextArea textArea = new JTextArea();
+        textArea.setFont(fontButtons);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setBounds(30, 90, 565, 200);
+
+        JTextField dateField = new JTextField();
+        dateField.setBounds(385, 380, 220, 40);
+        dateField.setFont(fontButtons);
+
+        // Draws a Label with a random anime girl at the bottom of the screen.
+        JLabel cuteLabel = new JLabel();
+        cuteLabel.setBounds(0, 300, 200, 200);
+        RandomImageLabel.setImageIconFromRandomFile(cuteLabel, "src/cute_images");
 
         JButton searchButton = new JButton("Search");
-        searchButton.setBounds(385,440,100,40);
+        searchButton.setBounds(385, 440, 100, 40);
         searchButton.setFont(fontButtons);
 
         JButton backButton = new JButton("Back");
-        backButton.setBounds(505,440,100,40);
+        backButton.setBounds(505, 440, 100, 40);
         backButton.setFont(fontButtons);
 
         // Add action listeners to the buttons
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
-            	if (isAdmin) {
-            	Administrator admin = new Administrator(itineraryDao);
-            	
-            	
-            	Date date = null;
-                
+
+            if (isAdmin) {
+                Administrator admin = new Administrator(itineraryDao);
+
+                Date date = null;
+
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 try {
                     date = dateFormat.parse(dateField.getText());
@@ -90,11 +97,11 @@ public class SearchItineraryFrame extends JFrame {
                 } catch (ParseException exception) {
                     new InvalidDateDialog();
                 }
-                
+
                 Itinerary itinerary = admin.getItineraryByDate(date);
                 if (itinerary != null) {
-            	String output = itinerary.getOrigin() + ", " + itinerary.getDestination() + " in " + itinerary.getDate();
-            	textArea.append(output + "\n");
+                String output = itinerary.getOrigin() + ", " + itinerary.getDestination() + " in " + itinerary.getDate();
+                textArea.append(output + "\n");
                 } else {
                 	textArea.append("None found.\n");
                 }

@@ -1,11 +1,10 @@
 package tests;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Date;
-
-
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +13,9 @@ import control.ItineraryDAOImpl;
 import model.Itinerary;
 import model.Administrator;
 
-
+/**
+ * The UpdateItineraryFrameTest class contains unit tests for the UpdateItineraryFrame functionality.
+ */
 public class UpdateItineraryFrameTest {
     private Administrator admin;
 
@@ -54,7 +55,7 @@ public class UpdateItineraryFrameTest {
         assertEquals(updatedItinerary.getOrigin(), firstMatchingItinerary.getOrigin());
         assertEquals(updatedItinerary.getDestination(), firstMatchingItinerary.getDestination());
 
-        // Verifies that the first matching itinerary remained unchanged.
+        // Verifies that the second matching itinerary remained unchanged.
         Itinerary secondMatchingItinerary = admin.getAllItinerary().get(1);
         assertEquals(itinerary2.getOrigin(), secondMatchingItinerary.getOrigin());
         assertEquals(itinerary2.getDestination(), secondMatchingItinerary.getDestination());
